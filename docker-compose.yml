@@ -1,0 +1,23 @@
+
+services:
+  gateway:
+    build: ./gateway
+    ports:
+      - "80:80"
+    depends_on:
+      - service-a
+    networks:
+      - app-network
+    restart: unless-stopped
+
+  service-a:
+    build: ./service-a
+    expose:
+      - "5000"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
